@@ -574,22 +574,26 @@
           <h2 class="h2 article-title">Contact</h2>
         </header>
 
-                  <form action="#" class="form" data-form>
+                  <form action="https://formspree.io/f/xyzpplon" method="POST" class="form" data-form>
+  
+  <div class="input-wrapper">
+    <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
 
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+    <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+  </div>
 
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
+  <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
 
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+  <!-- You can include a hidden field to help identify the form -->
+  <input type="hidden" name="_subject" value="New message from contact form">
 
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
+  <button class="form-btn" type="submit" data-form-btn>
+    <ion-icon name="paper-plane"></ion-icon>
+    <span>Send Message</span>
+  </button>
 
-          </form>
+</form>
+
 
         </section>
 
