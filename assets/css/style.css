@@ -331,6 +331,10 @@ main {
   gap: 15px;
 }
 
+.profile-image{
+  border-radius: 20px;
+}
+
 .avatar-box {
   background: var(--bg-gradient-onyx);
   border-radius: 20px;
