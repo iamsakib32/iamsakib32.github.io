@@ -5,13 +5,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vCard - Personal Portfolio</title>
+  <title>Nacher Uddin Sakib - Personal Portfolio</title>
 
   <!--
     - favicon
   -->
-  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
-
+   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon"> 
   <!--
     - custom css link
   -->
@@ -23,6 +22,109 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Enhanced styles for the new portfolio section */
+    .project-item {
+      background: var(--border-gradient-onyx);
+      border: 1px solid var(--jet);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .project-item:hover {
+      box-shadow: var(--shadow-2);
+      transform: translateY(-2px);
+    }
+
+    .project-category {
+      color: var(--orange-yellow-crayola);
+      font-size: var(--fs-7);
+      font-weight: var(--fw-300);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .project-title {
+      color: var(--white-2);
+      font-size: var(--fs-4);
+      font-weight: var(--fw-400);
+      margin-bottom: 12px;
+    }
+
+    .project-description {
+      margin-bottom: 16px;
+    }
+
+    .project-description p {
+      color: var(--light-gray);
+      font-size: var(--fs-6);
+      line-height: 1.6;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tech-tag {
+      background: var(--onyx);
+      color: var(--orange-yellow-crayola);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: var(--fs-8);
+      font-weight: var(--fw-500);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .project-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--orange-yellow-crayola);
+      font-size: var(--fs-6);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .project-link:hover {
+      color: var(--white-2);
+    }
+
+    .project-link ion-icon {
+      font-size: 18px;
+    }
+
+    .filter-select-box,
+    .filter-list {
+      margin-bottom: 30px;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 20px;
+    }
+
+    /* Hide/show filtered items */
+    .project-item.hidden {
+      display: none;
+    }
+
+    /* Responsive grid */
+    @media (min-width: 768px) {
+      .project-list {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -516,7 +618,7 @@ I love to cook, play video games, and watch movies when I'm not using technology
 
 
       <!--
-        - #PROJECTS
+        - #PROJECTS (ENHANCED VERSION)
       -->
 
       <article class="projects" data-page="projects">
@@ -527,23 +629,115 @@ I love to cook, play video games, and watch movies when I'm not using technology
 
         <section class="projects">
 
-         
+          <!-- Mobile Filter Dropdown -->
           <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
+            <button class="filter-select" data-filter-select>
+              <div class="select-value" data-filter-select-value>All</div>
               <div class="select-icon">
                 <ion-icon name="chevron-down"></ion-icon>
               </div>
-
             </button>
 
-            
+            <ul class="select-list" data-filter-select-list>
+              <li class="select-item">
+                <button data-filter-item data-filter-value="all">All</button>
+              </li>
+              <li class="select-item">
+                <button data-filter-item data-filter-value="programming">Programming</button>
+              </li>
+              <li class="select-item">
+                <button data-filter-item data-filter-value="research">Research</button>
+              </li>
+              <li class="select-item">
+                <button data-filter-item data-filter-value="web development">Web Development</button>
+              </li>
+
+            </ul>
           </div>
 
-         
+          <!-- Desktop Filter List -->
+          <ul class="filter-list">
+            <li class="filter-item">
+              <button class="active" data-filter-btn data-filter-value="all">All</button>
+            </li>
+            <li class="filter-item">
+              <button data-filter-btn data-filter-value="programming">Programming</button>
+            </li>
+            <li class="filter-item">
+              <button data-filter-btn data-filter-value="research">Research</button>
+            </li>
+            <li class="filter-item">
+              <button data-filter-btn data-filter-value="web development">Web Development</button>
+            </li>
+
+          </ul>
+
+          <!-- Project List -->
+          <section class="project-list">
+
+            <!-- Your Original Projects -->
+            <div class="project-item active" data-filter-project data-category="programming">
+              <div class="project-category">Programming</div>
+              <h3 class="project-title">Online Course Management System</h3>
+              <div class="project-description">
+                <p>Created a Java-based course administration system with a JavaFX user interface.  Administrators controlled the system, teachers ran classes, and students could sign up for classes.  user interface design and backend logic were the main focus.</p>
+              </div>
+              <div class="project-tech">
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">JavaFX</span>
+        
+              </div>
+              <div class="project-links">
+                
+              </div>
+            </div>
+
+            <div class="project-item active" data-filter-project data-category="research">
+              <div class="project-category">Research PAPER</div>
+              <h3 class="project-title">Database Management Research</h3>
+              <div class="project-description">
+                <p>The study paper that I wrote was titled "Issues and Challenges of Database Applications in Human Resource Management."  Numerous scholarly articles were examined and evaluated online to bolster the conclusions and analysis.</p>
+              </div>
+              <div class="project-tech">
+
+                <span class="tech-tag">Database Systems</span>
+                 <span class="tech-tag">MySQL</span>
+              </div>
+              <div class="project-links">
+                
+              </div>
+            </div>
+
+            <!-- Additional Enhanced Projects -->
+            <div class="project-item active" data-filter-project data-category="web development">
+              <div class="project-category">Web Development</div>
+              <h3 class="project-title">Personal Portfolio Website</h3>
+              <div class="project-description">
+                <p>Responsive portfolio website with modern design, smooth animations, and optimized performance. Built with HTML, CSS, and JavaScript featuring dark theme and mobile-first approach.</p>
+              </div>
+              <div class="project-tech">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Responsive Design</span>
+              </div>
+              <div class="project-links">
+  <a href="https://iamsakib32.github.io/nacheruddinsakib/" class="project-link" target="_blank" rel="noopener noreferrer">
+    Live Demo
+    <ion-icon name="open-outline"></ion-icon>
+  </a>
+  <a href="https://github.com/iamsakib32/nacheruddinsakib" class="project-link" target="_blank" rel="noopener noreferrer">
+    GitHub
+    <ion-icon name="logo-github"></ion-icon>
+  </a>
+</div>
+
+            </div>
+
+
+
+          </section>
+
         </section>
 
       </article>
@@ -591,15 +785,70 @@ I love to cook, play video games, and watch movies when I'm not using technology
 
   </main>
 
-
-
-
-
-
   <!--
     - custom js link
   -->
   <script src="./assets/js/script.js"></script>
+
+  <!-- Enhanced JavaScript for Project Filtering -->
+  <script>
+    // Project filtering functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterBtns = document.querySelectorAll('[data-filter-btn]');
+      const filterSelectItems = document.querySelectorAll('[data-filter-item]');
+      const filterSelectValue = document.querySelector('[data-filter-select-value]');
+      const projectItems = document.querySelectorAll('[data-filter-project]');
+
+      function filterProjects(filterValue) {
+        projectItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (filterValue === 'all' || category === filterValue) {
+            item.classList.remove('hidden');
+            item.classList.add('active');
+          } else {
+            item.classList.add('hidden');
+            item.classList.remove('active');
+          }
+        });
+      }
+
+      // Desktop filter buttons
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const filterValue = this.getAttribute('data-filter-value');
+          
+          // Update active state
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Filter projects
+          filterProjects(filterValue);
+        });
+      });
+
+      // Mobile filter dropdown
+      filterSelectItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const filterValue = this.getAttribute('data-filter-value');
+          const filterText = this.textContent;
+          
+          // Update dropdown value
+          filterSelectValue.textContent = filterText;
+          
+          // Update desktop buttons
+          filterBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-filter-value') === filterValue) {
+              btn.classList.add('active');
+            }
+          });
+          
+          // Filter projects
+          filterProjects(filterValue);
+        });
+      });
+    });
+  </script>
 
   <!--
     - ionicon link
