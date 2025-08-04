@@ -868,72 +868,199 @@ I love to cook, play video games, and watch movies when I'm not using technology
         });
       });
 
-      // Contact Form Handling
-      const form = document.querySelector('[data-form]');
-      const formBtn = document.querySelector('[data-form-btn]');
-      const formInputs = document.querySelectorAll('[data-form-input]');
-      const formStatus = document.getElementById('form-status');
-      const statusMessage = document.getElementById('status-message');
+      <!--
+  - #CONTACT - Fixed version keeping all original data
+-->
 
-      if (form) {
-        form.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          
-          // Show loading state
-          formBtn.disabled = true;
-          formBtn.innerHTML = '<ion-icon name="hourglass-outline"></ion-icon><span>Sending...</span>';
-          
-          // Hide previous status
-          formStatus.style.display = 'none';
-          
-          try {
-            const formData = new FormData(form);
-            
-            const response = await fetch(form.action, {
-              method: 'POST',
-              body: formData,
-              headers: {
-                'Accept': 'application/json'
-              }
-            });
-            
-            if (response.ok) {
-              // Success
-              showStatus('Message sent successfully! Thank you for contacting me.', 'success');
-              form.reset();
-            } else {
-              // Error from server
-              const data = await response.json();
-              if (data.errors) {
-                showStatus('Error: ' + data.errors.map(error => error.message).join(', '), 'error');
-              } else {
-                showStatus('There was a problem sending your message. Please try again.', 'error');
-              }
-            }
-          } catch (error) {
-            // Network or other error
-            console.error('Form submission error:', error);
-            showStatus('Network error. Please check your connection and try again.', 'error');
+<!--
+  - #CONTACT - Fixed version keeping all original data
+-->
+
+<article class="contact" data-page="contact">
+
+  <header>
+    <h2 class="h2 article-title">Contact</h2>
+  </header>
+
+  <section class="mapbox" data-mapbox>
+    <figure>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9047689219845!2d90.37928431498123!3d23.753418684589157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755bf4a6e92d22b%3A0x3b0a87dbde3a6b4!2sWest%20Raja%20Bazar%2C%20Panthapath%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1694525631782!5m2!1sen!2sbd"
+        width="400" height="300" loading="lazy" title="West Raja Bazar, Panthapath, Dhaka location map"></iframe>
+    </figure>
+  </section>
+
+  <section class="contact-form">
+
+    <h3 class="h3 form-title">Contact Form</h3>
+
+    <form action="https://formspree.io/f/myzpnkgr" method="POST" class="form" data-form>
+      
+      <div class="input-wrapper">
+        <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+        <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+      </div>
+
+      <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+
+      <!-- Formspree configuration - SIMPLIFIED to fix "msg not found" -->
+      <input type="hidden" name="_subject" value="New contact form submission">
+      <input type="text" name="_gotcha" style="display:none !important; visibility:hidden !important;">
+
+      <button class="form-btn" type="submit" data-form-btn>
+        <ion-icon name="paper-plane"></ion-icon>
+        <span>Send Message</span>
+      </button>
+
+    </form>
+
+    <!-- Status messages -->
+    <div id="form-status" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;">
+      <p id="status-message"></p>
+    </div>
+
+  </section>
+
+</article>
+
+<style>
+  .success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .form-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+// MINIMAL FIX - Enhanced JavaScript for Form Handling (keeping all original functionality)
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('[data-form]');
+  const formBtn = document.querySelector('[data-form-btn]');
+  const formInputs = document.querySelectorAll('[data-form-input]');
+  const formStatus = document.getElementById('form-status');
+  const statusMessage = document.getElementById('status-message');
+
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      formBtn.disabled = true;
+      formBtn.innerHTML = '<ion-icon name="hourglass-outline"></ion-icon><span>Sending...</span>';
+      
+      // Hide previous status
+      formStatus.style.display = 'none';
+      
+      // Get form data
+      const formData = new FormData(form);
+      
+      // Try multiple submission methods to fix "msg not found"
+      let success = false;
+      
+      // Method 1: Modern fetch with better error handling
+      try {
+        console.log('Trying fetch method...');
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
           }
-          
-          // Reset button
-          formBtn.disabled = false;
-          formBtn.innerHTML = '<ion-icon name="paper-plane"></ion-icon><span>Send Message</span>';
         });
-      }
-
-      function showStatus(message, type) {
-        statusMessage.textContent = message;
-        formStatus.className = type === 'success' ? 'success-message' : 'error-message';
-        formStatus.style.display = 'block';
         
-        // Auto hide after 5 seconds
-        setTimeout(() => {
-          formStatus.style.display = 'none';
-        }, 5000);
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        
+        if (response.ok || response.status === 200) {
+          success = true;
+          showStatus('Message sent successfully! Thank you for contacting me.', 'success');
+          form.reset();
+        } else {
+          console.log('Fetch failed, trying fallback...');
+          // Try fallback method
+          await submitWithXHR(formData);
+          success = true;
+        }
+        
+      } catch (error) {
+        console.log('Fetch error:', error);
+        console.log('Trying XHR fallback...');
+        
+        // Method 2: XMLHttpRequest fallback
+        try {
+          await submitWithXHR(formData);
+          success = true;
+        } catch (xhrError) {
+          console.log('XHR error:', xhrError);
+          success = false;
+        }
       }
+      
+      // If all methods failed
+      if (!success) {
+        showStatus('Unable to send message through the form. Please email me directly at: nacheruddinsakib@gmail.com', 'error');
+      }
+      
+      // Reset button
+      formBtn.disabled = false;
+      formBtn.innerHTML = '<ion-icon name="paper-plane"></ion-icon><span>Send Message</span>';
     });
-  </script>
+  }
+
+  // XHR fallback method
+  function submitWithXHR(formData) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      
+      xhr.open('POST', form.action, true);
+      
+      xhr.onload = function() {
+        console.log('XHR Status:', xhr.status);
+        
+        if (xhr.status === 200 || xhr.status === 302) {
+          showStatus('Message sent successfully! Thank you for contacting me.', 'success');
+          form.reset();
+          resolve();
+        } else {
+          console.log('XHR Response:', xhr.responseText);
+          reject(new Error('XHR failed'));
+        }
+      };
+      
+      xhr.onerror = function() {
+        console.log('XHR Network Error');
+        reject(new Error('Network error'));
+      };
+      
+      xhr.send(formData);
+    });
+  }
+
+  function showStatus(message, type) {
+    statusMessage.textContent = message;
+    formStatus.className = type === 'success' ? 'success-message' : 'error-message';
+    formStatus.style.display = 'block';
+    
+    // Auto hide after 5 seconds for success messages
+    if (type === 'success') {
+      setTimeout(() => {
+        formStatus.style.display = 'none';
+      }, 5000);
+    }
+  }
+});
+</script>
 
   <style>
     .success-message {
