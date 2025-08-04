@@ -759,32 +759,43 @@ I love to cook, play video games, and watch movies when I'm not using technology
           <h2 class="h2 article-title">Contact</h2>
         </header>
 
-                  <form action="https://formspree.io/f/movlnzbo" method="POST" class="form" data-form>
-  
-  <div class="input-wrapper">
-    <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+        <section class="mapbox" data-mapbox>
+          <figure>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9047689219845!2d90.37928431498123!3d23.753418684589157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755bf4a6e92d22b%3A0x3b0a87dbde3a6b4!2sWest%20Raja%20Bazar%2C%20Panthapath%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1694525631782!5m2!1sen!2sbd"
+              width="400" height="300" loading="lazy" title="West Raja Bazar, Panthapath, Dhaka location map"></iframe>
+          </figure>
+        </section>
 
-    <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-  </div>
+        <section class="contact-form">
 
-  <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+          <h3 class="h3 form-title">Contact Form</h3>
 
-  <!-- Optional subject for your email -->
-  <input type="hidden" name="_subject" value="New message from contact form">
+          <form action="https://formspree.io/f/myzpnkgr" method="POST" class="form" data-form>
+            
+            <div class="input-wrapper">
+              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+            </div>
 
-  <!-- Spam prevention (honeypot field) -->
-  <input type="text" name="_gotcha" style="display:none">
+            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
 
-  <!-- Disable Formspree's default captcha -->
-  <input type="hidden" name="_captcha" value="false">
+            <!-- Formspree configuration -->
+            <input type="hidden" name="_subject" value="New contact form submission">
+            <input type="hidden" name="_next" value="thank-you.html">
+            <input type="text" name="_gotcha" style="display:none !important; visibility:hidden !important;">
 
-  <button class="form-btn" type="submit" data-form-btn>
-    <ion-icon name="paper-plane"></ion-icon>
-    <span>Send Message</span>
-  </button>
+            <button class="form-btn" type="submit" data-form-btn>
+              <ion-icon name="paper-plane"></ion-icon>
+              <span>Send Message</span>
+            </button>
 
-</form>
+          </form>
 
+          <!-- Status messages -->
+          <div id="form-status" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;">
+            <p id="status-message"></p>
+          </div>
 
         </section>
 
@@ -799,7 +810,7 @@ I love to cook, play video games, and watch movies when I'm not using technology
   -->
   <script src="./assets/js/script.js"></script>
 
-  <!-- Enhanced JavaScript for Project Filtering -->
+  <!-- Enhanced JavaScript for Project Filtering and Form Handling -->
   <script>
     // Project filtering functionality
     document.addEventListener('DOMContentLoaded', function() {
@@ -856,8 +867,92 @@ I love to cook, play video games, and watch movies when I'm not using technology
           filterProjects(filterValue);
         });
       });
+
+      // Contact Form Handling
+      const form = document.querySelector('[data-form]');
+      const formBtn = document.querySelector('[data-form-btn]');
+      const formInputs = document.querySelectorAll('[data-form-input]');
+      const formStatus = document.getElementById('form-status');
+      const statusMessage = document.getElementById('status-message');
+
+      if (form) {
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          // Show loading state
+          formBtn.disabled = true;
+          formBtn.innerHTML = '<ion-icon name="hourglass-outline"></ion-icon><span>Sending...</span>';
+          
+          // Hide previous status
+          formStatus.style.display = 'none';
+          
+          try {
+            const formData = new FormData(form);
+            
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Accept': 'application/json'
+              }
+            });
+            
+            if (response.ok) {
+              // Success
+              showStatus('Message sent successfully! Thank you for contacting me.', 'success');
+              form.reset();
+            } else {
+              // Error from server
+              const data = await response.json();
+              if (data.errors) {
+                showStatus('Error: ' + data.errors.map(error => error.message).join(', '), 'error');
+              } else {
+                showStatus('There was a problem sending your message. Please try again.', 'error');
+              }
+            }
+          } catch (error) {
+            // Network or other error
+            console.error('Form submission error:', error);
+            showStatus('Network error. Please check your connection and try again.', 'error');
+          }
+          
+          // Reset button
+          formBtn.disabled = false;
+          formBtn.innerHTML = '<ion-icon name="paper-plane"></ion-icon><span>Send Message</span>';
+        });
+      }
+
+      function showStatus(message, type) {
+        statusMessage.textContent = message;
+        formStatus.className = type === 'success' ? 'success-message' : 'error-message';
+        formStatus.style.display = 'block';
+        
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+          formStatus.style.display = 'none';
+        }, 5000);
+      }
     });
   </script>
+
+  <style>
+    .success-message {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .error-message {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .form-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
 
   <!--
     - ionicon link
