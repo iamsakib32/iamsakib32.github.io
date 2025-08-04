@@ -759,7 +759,7 @@ I love to cook, play video games, and watch movies when I'm not using technology
           <h2 class="h2 article-title">Contact</h2>
         </header>
 
-                  <form action="https://formspree.io/f/xyzpplon" method="POST" class="form" data-form>
+                  <form action="https://formspree.io/f/movlnzbo" method="POST" class="form" data-form>
   
   <div class="input-wrapper">
     <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
@@ -769,8 +769,11 @@ I love to cook, play video games, and watch movies when I'm not using technology
 
   <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
 
-  <!-- You can include a hidden field to help identify the form -->
+  <!-- Hidden field to help identify the form -->
   <input type="hidden" name="_subject" value="New message from contact form">
+  
+  <!-- Formspree honeypot field to prevent spam -->
+  <input type="hidden" name="_captcha" value="false">
 
   <button class="form-btn" type="submit" data-form-btn>
     <ion-icon name="paper-plane"></ion-icon>
@@ -778,7 +781,6 @@ I love to cook, play video games, and watch movies when I'm not using technology
   </button>
 
 </form>
-
 
         </section>
 
