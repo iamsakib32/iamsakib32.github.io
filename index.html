@@ -769,10 +769,13 @@ I love to cook, play video games, and watch movies when I'm not using technology
 
   <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
 
-  <!-- Hidden field to help identify the form -->
+  <!-- Optional subject for your email -->
   <input type="hidden" name="_subject" value="New message from contact form">
-  
-  <!-- Formspree honeypot field to prevent spam -->
+
+  <!-- Spam prevention (honeypot field) -->
+  <input type="text" name="_gotcha" style="display:none">
+
+  <!-- Disable Formspree's default captcha -->
   <input type="hidden" name="_captcha" value="false">
 
   <button class="form-btn" type="submit" data-form-btn>
@@ -781,6 +784,7 @@ I love to cook, play video games, and watch movies when I'm not using technology
   </button>
 
 </form>
+
 
         </section>
 
